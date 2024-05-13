@@ -104,7 +104,7 @@ impl Xsd {
     Xsd::new(name, vis, &content, module_namespace_mappings)
   }
 
-  pub fn implement(&self, target_prefix: &Option<String>) -> TokenStream {
+  pub fn implement(&self, target_prefix: &Option<String>, with_crate_import: bool) -> TokenStream {
     let schema = self
       .schema
       .implement(&TokenStream::new(), target_prefix, &self.context);
@@ -112,8 +112,16 @@ impl Xsd {
     let mod_name = format_ident!("{}", self.name.to_snake_case());
     let vis = &self.vis;
 
+    let crate_import = if with_crate_import {
+      quote! { use crate::*; }
+  } else {
+      quote! {}
+  };
+
     quote! {
         mod #mod_name {
+            #crate_import
+
             #schema
         }
 

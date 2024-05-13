@@ -11,6 +11,7 @@ pub struct XmlSchemaAttributes {
   pub source: String,
   pub store_generated_code: Option<String>,
   pub target_prefix: Option<String>,
+  pub with_crate_import: Option<bool>,
 }
 
 impl XmlSchemaAttributes {
