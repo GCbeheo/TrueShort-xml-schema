@@ -14,7 +14,10 @@ pub fn expand_derive(attributes: &XmlSchemaAttributes) -> Result<TokenStream, St
     &attributes.source,
     &attributes.module_namespace_mappings(),
   )?;
-  let generated = xsd.implement(&attributes.target_prefix, attributes.with_crate_import.unwrap_or_default());
+  let generated = xsd.implement(
+    &attributes.target_prefix,
+    attributes.with_crate_import.unwrap_or_default(),
+  );
 
   if let Some(store_generated_code) = &attributes.store_generated_code {
     std::fs::write(store_generated_code, generated.to_string()).map_err(|e| e.to_string())?;

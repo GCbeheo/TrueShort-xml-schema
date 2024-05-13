@@ -114,9 +114,9 @@ impl Xsd {
 
     let crate_import = if with_crate_import {
       quote! { use crate::*; }
-  } else {
+    } else {
       quote! {}
-  };
+    };
 
     quote! {
         mod #mod_name {
